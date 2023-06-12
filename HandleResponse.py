@@ -217,10 +217,11 @@ def ratememe_functions(header,body, ip):
             with open("lobbies.json", "w") as f:
                 json.dump(lobbies, f)
             print(lobby["all_memes_made"][-1])
-            msg = Protocol.prepare_meme(lobby["all_memes_made"][-1], -1)
+            msg = Protocol.prepare_meme(lobby["memes_this_round"][0], -1)
         else:
             msg = b'{"hasnext":true}'
             lobby["phase"] += 1
+            lobby["round_timer"] = time.time() + 30
             lobbies[lobby_name] = lobby
             with open("lobbies.json", "w") as f:
                 json.dump(lobbies, f)
@@ -229,14 +230,14 @@ def ratememe_functions(header,body, ip):
 
     if "a=rated" in header[1]:
         rating = header[1][-1]
-        print(lobby["all_memes_made"][-1]["score"] + 1)
+
         if rating == "1":
-            lobby["all_memes_made"][-1]["score"] -= 1
+            lobby["memes_this_round"][-1]["score"] -= 1
         elif rating == "2":
-            lobby["all_memes_made"][-1]["score"] += 1
-            print(lobby["all_memes_made"][-1]["score"])
+            lobby["memes_this_round"][-1]["score"] += 1
+
         elif rating == "3":
-            lobby["all_memes_made"][-1]["score"] += 1.5
+            lobby["memes_this_round"][-1]["score"] += 1.5
         lobbies[lobby_name] = lobby
         with open("lobbies.json", "w") as f:
             json.dump(lobbies, f)
@@ -280,15 +281,74 @@ def show_meme_functions(header, body, ip):
     with open("lobbies.json", "r") as f:
         lobbies = json.load(f)
         lobby = lobbies[lobby_name]
+
+    if ip not in lobby["players_ip"]:
+        msg = "{" + f'"send":"makeuser.html"' + "}"
+        return Protocol.create_msg(msg. encode(), "text/json")
+    if not lobby["phase"] == 3:
+        print(Protocol.get_phase(lobby["phase"]))
+        msg = "{" + f'"send":"{Protocol.get_phase(lobby["phase"])}"' + "}"
+        return Protocol.create_msg(msg.encode(), "text/json")
+
     print("herer")
     if "a=getalldata" in header[1]:
         print("here")
-        msg = Protocol.show_all_memes(lobby)
+        msg = Protocol.show_all_memes(lobby, "memes_this_round")
         print(msg)
         return Protocol.create_msg(msg.encode(), "text/json")
+    if "a=gettime" in header[1]:
+        msg = "{" + f'\"time\":{int(lobby["round_timer"]- time.time())}' + "}"
+        return Protocol.create_msg(msg.encode(), "text/json")
+    if "a=nextphase" in header[1]:
+        if lobby["round_timer"] < time.time():
+            if lobby["round"] >= lobby["rounds"]:
+                lobby = Protocol.add_memes(lobby)
+                lobby["phase"] = 4
+                lobbies[lobby_name] = lobby
+                msg = Protocol.get_phase(4)
+                print(msg)
+            else:
+                lobby["round"] += 1
+                lobby = Protocol.add_memes(lobby)
+                lobby["phase"] = 0
+                lobby["round_timer"] = time.time() + lobby["time_per_meme"]
+                lobbies[lobby_name] = lobby
+                msg = Protocol.get_phase(0)
+            msg = "{" + f'"send":"{msg}"' + "}"
+            with open("lobbies.json", "w") as f:
+                json.dump(lobbies, f)
+            print(msg)
+        else:
+            msg = "{" + f'"time":{int(lobby["round_timer"] - time.time())}' + "}"
+        return Protocol.create_msg(msg.encode(), "text/json")
+    return b""
 
 
+def leaderboards_functions (header, body, ip):
+    lobby_name = header[1].split("/")[0]
+    print(header)
+    with open("lobbies.json", "r") as f:
+        lobbies = json.load(f)
+        lobby = lobbies[lobby_name]
 
+    if ip not in lobby["players_ip"]:
+        msg = "{" + f'"send":"makeuser.html"' + "}"
+        return Protocol.create_msg(msg.encode(), "text/json")
+    if not lobby["phase"] == 4:
+        print(Protocol.get_phase(lobby["phase"]))
+        msg = "{" + f'"send":"{Protocol.get_phase(lobby["phase"])}"' + "}"
+        return Protocol.create_msg(msg.encode(), "text/json")
+
+    if "a=getallmemes" in header[1]:
+        msg = Protocol.show_all_memes(lobby, "all_memes_made")
+        return Protocol.create_msg(msg.encode(), "text/json")
+    elif "a=gettime" in header[1]:
+        if lobby["round_timer"] < time.time():
+            lobby["phase"] = 0
+            print("NEED TO ADD LOBBY")
+        msg = "{" + f'"time":{int(lobby["round_timer"] - time.time())}' + "}"
+        return Protocol.create_msg(msg.encode(), "text/json")
+    return b""
 def check_for_errors(header, body, ip):
     some_error = None
     lobby_name = header[1].split("/")[0]

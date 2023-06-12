@@ -27,10 +27,10 @@ class MemeMaker:
         return CAPTIONS[rnd]
 
     @staticmethod
-    def caption_classes (captions, index):
+    def classes(captions, index, type):
         cc = "["
-        for i in range(len(captions)):
-            cc += ("\"" + str(index) + str(i) + "\",")
+        for i in range(captions):
+            cc += (f"\"{type}" + str(index) + str(i) + "\",")
         cc = cc[:-1] + "]"
         return cc
 

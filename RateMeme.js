@@ -3,6 +3,7 @@ const lobby = window.location.href.split("/")[3];
 let vote = 0;
 let time = 20;
 
+Vote();
 setInterval(() => {
     Vote();
     

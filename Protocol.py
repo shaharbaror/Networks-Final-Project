@@ -60,6 +60,9 @@ class Protocol:
                 "is_ok": true,
                "memeIndex": {rnd},
                "captions": {captions},
+               "caption_classes":{MemeMaker.classes(captions, rnd, "caption")},
+               "caption_div_classes":{MemeMaker.classes(captions, rnd, "cap_div")},
+               "meme_classes":"meme{rnd}",
                "styles":"{f'{styles}'[2:][:-1]}"
                
                ''').encode()
@@ -73,12 +76,15 @@ class Protocol:
             player = meme["creator"]
         contents = b"["
         for i in meme["captions"]:
-            contents += b" \""+ str(i).encode() + b"\","
+            contents += b" \"" + str(i).encode() + b"\","
         contents = contents[:-1] + b"]"
         print(contents)
         res = ("{" + f'''
                 "creator":{player},
                 "captions":{len(meme["captions"])},
+                "caption_classes":{MemeMaker.classes(len(meme["captions"]), meme["index"], "caption")},
+                "caption_div_classes":{MemeMaker.classes(len(meme["captions"]), meme["index"], "cap_div")},
+                "meme_classes":"meme{meme["index"]}",
                 "styles":"{f'{styles}'[2:][:-1]}",
                 "content":{f'{contents}'[2:][:-1]}
             ''' + "}").encode()
@@ -161,10 +167,13 @@ class Protocol:
         return PHASES[phase]
 
     @staticmethod
-    def show_all_memes(lobby):
+    def show_all_memes(lobby, action):
         msg = '''{
                     "memes":['''
-        memes = lobby["memes_this_round"]
+        if action == "memes_this_round":
+            memes = lobby["memes_this_round"]
+        elif action == "all_memes_made":
+            memes = lobby["all_memes_made"]
         meme_types = []
         caption_classes = []
         stylesheet = b""
@@ -175,7 +184,7 @@ class Protocol:
 
                 meme_types.append(meme["index"])
                 stylesheet += MemeMaker.getStyles(meme["index"])  # currently also showing background images
-
+            contents = b"["
             for i in meme["captions"]:
                 contents += b" \"" + str(i).encode() + b"\","
             contents = contents[:-1] + b"]"
@@ -184,9 +193,11 @@ class Protocol:
                 "creator":{lobby["players"][meme["creator"]]},
                 "background_image":"{MemeMaker.getImage(meme["index"])}",
                 "content":{f'{contents}'[2:][:-1]},
-                "caption_classes":{MemeMaker.caption_classes(meme["captions"], meme["index"])},
+                "caption_classes":{MemeMaker.classes(len(meme["captions"]), meme["index"], "caption")},
+                "caption_div_classes":{MemeMaker.classes(len(meme["captions"]), meme["index"], "cap_div")},
+                "meme_classes":"meme{meme["index"]}",
                 "score":{meme["score"]},
-                "meme_buddies":["not yet"]
+                "meme_buddies":["defaultPic.png"]
             ''' + "},"
         msg = msg[:-1] + '],"players":['
 
@@ -194,12 +205,22 @@ class Protocol:
             msg += "{" + f'''
                 "username":{lobby["players"][player]},
                 "score":{lobby["score"][player]},
-                "profile_picture":"not yet"
+                "profile_picture":"defaultPic.png"
             ''' + "},"
-        msg = msg[:-1] + "]," + '"info":{' + f'"round":{lobby["round"]}, "timer":30' + "}}"
+
+        msg = msg[:-1] + "]," + '"info":{' + f'"round":"round {lobby["round"]}/{lobby["rounds"]}", "timer":30' + "},"
+        msg += f"\"styles\":\"{f'{stylesheet}'[2:][:-1]}\"" + "}"
+
         return msg
 
-    #NEED TO CREATE A SPECIAL CLASS NAMES FOR EVERY SINGLE MEME INCLUDING THE BI 
+    #NEED TO CREATE A SPECIAL CLASS NAMES FOR EVERY SINGLE MEME INCLUDING THE BI
+
+    @staticmethod
+    def add_memes(lobby):
+        while len(lobby["memes_this_round"]) >= 1:
+            lobby["all_memes_made"].append(lobby["memes_this_round"][0])
+            lobby["memes_this_round"].pop(0)
+        return lobby
 
 
 
