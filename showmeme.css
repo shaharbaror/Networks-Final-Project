@@ -1,0 +1,61 @@
+body{
+    background-color: rgb(45, 45, 172);
+}
+
+.top-div {
+    height:20vh;
+    display: flex;
+    justify-content: center;
+}
+
+.logo-div {
+    text-align: right;
+    width:35%;
+    color: white;
+    font-size: 2vw;
+    line-height: 75%;
+}
+
+.info-div {
+    width:35%;
+    display: flex;
+    justify-content: right;
+    padding-top: 3%;
+
+    color:white;
+    font-size: 1vw;
+}
+
+.info-divs {
+    width:33%;
+    text-align: center;
+    height:100%;
+}
+
+.show-div {
+    display: flex;
+
+    width:79vw;
+
+    margin-top: 10vh;
+    margin-left: 20vw;
+    height: fit-content;
+
+
+
+}
+
+.meme-box-div {
+    width:50%;
+    height:100%;
+    padding: 5%;
+    border:2px solid black;
+}
+
+.player-box-div {
+    width:35%;
+    min-height: 10vh;
+    height:fit-content;
+    margin: 0 5%;
+    background-color: white;
+}

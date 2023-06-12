@@ -1,0 +1,55 @@
+.caption11
+{
+    margin-top: 60%;
+    font-size: 25px;
+    width:40%;
+    max-width:50%;
+    margin-left: 30%;
+}
+.caption12 {
+    max-width: 300px;
+    margin-left:5%;
+    font-size: 30px;
+}
+#cap-div11 {
+    width: 50%;
+}
+#cap-div12 {
+    width: 50%;
+    text-align: center;
+}
+.meme {
+    background-image: url('./MemeBank/meme01.png');
+    display: flex;
+    aspect-ratio:1/1;
+}
+
+__SHEETBREAKER__
+
+.caption21 {
+  margin-top: 5%;
+  margin-left: 5%;
+  font-size: 30px;
+  max-width: 15%;
+}
+
+.caption22 {
+  margin-top: 30%;
+  margin-left: 5%;
+  font-size: 30px;
+  max-width: 15%;
+}
+
+#cap-div21 {
+    width: 50%;
+}
+#cap-div22 {
+    width: 50%;
+    text-align: center;
+}
+
+.meme {
+    background-image: url('./MemeBank/meme02.png');
+    display: block;
+    aspect-ratio: 235/ 223.5;
+}
