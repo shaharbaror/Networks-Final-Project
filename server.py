@@ -20,6 +20,7 @@ class Server:
         self.s.listen(9)
         self.clients = {}
         self.running = True
+        self.check_lobbies = time.time() + 40   # the amount of time it takes to check for the lobbies and to see which to close and which to not
 
     def handle_request(self, requests, ip):
         return HandleResponse.handle_request(requests, ip)
@@ -170,7 +171,12 @@ class Server:
 
             connection, address = self.s.accept()
             self.clients.update({connection: address})
-
+        # if time.time() >= self.check_lobbies:
+        #     with open("lobbies.json", "r") as f:
+        #         lobbies = json.load(f)
+        #     lobbies = Protocol.check_lobbies(lobbies)
+        #     with open("lobbies.json", "w") as f:
+        #         json.dump(lobbies, f)
     def respond(self):
         if len(self.clients.keys()) > 0:
             readable, _, _ = select(self.clients.keys(), [], [], 0.01)

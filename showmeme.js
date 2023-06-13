@@ -19,6 +19,7 @@ async function AtStart () {
     document.getElementById("round").innerHTML = data.info.round;
     setInterval(() => {
         timer--;
+        
         if (timer <= 0) {
             NextPhase(round);
         }
@@ -29,8 +30,10 @@ async function AtStart () {
         if (response) {
             info = await response.json()
             if (info.time <= 0) {
+                
                 NextPhase(round);
             }
+            console.log(info);
             timer = info.time;
         }
     },5000)
@@ -45,6 +48,7 @@ async function FetchAllData () {
         if (response) {
             const data = await response.json();
             if (data.send) {
+                
                 window.location.href = "/" + `${lobby}/${data.send}`;
                 return
             }
@@ -71,9 +75,6 @@ async function FetchAllData () {
                     }
                 }
             */
-            if (data.hasnext) {
-                window.location.href = "/" + `${lobby}/showmeme.html`;
-            }
             if (data.not_assigned) {
                 window.location.href = "/" + `${lobby}/makeuser.html`;
             }

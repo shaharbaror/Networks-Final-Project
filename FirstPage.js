@@ -44,11 +44,9 @@ async function FetchFirstData(){
     var response = await fetch(`firstpage?s=f&a=startgame`);
     data = await response.json();
     if (data.send) {
-        alert(window.location);
-        alert(`${lobby}/makeuser.html`)
+        
         window.location.href = "/" +`${lobby}/${data.send}`;
-        alert(lobby)
-        alert(window.location);
+        
         console.log("it works");
         return
     }
@@ -77,7 +75,7 @@ async function FetchFirstData(){
         }
     }, 1000);
     //UpdateDone();
-    ReRollMeme(data.is_ok, data.memeIndex, data.captions, data.styles)
+    ReRollMeme(data);
 
 } 
 
@@ -108,22 +106,15 @@ function CountTime(timer) {
 //     })
 // }
 
-async function ReRollMeme(is_ok = null, memeIndex = null, captions = null, styles = null) {
+async function ReRollMeme(data) {
     //fetch the meme id and the caption amount, also make sure that if the meme is changed manualy the server wont give the mene
     
     if (memeInfo.rollsLeft > 0) {
-        let response,data;
-        if (!(memeIndex && captions && styles)){
+        let response;
+        if (!(data != null)){
             response = await fetch(`firstpage?s=f&a=newmeme`);
             if (response){
                 data = await response.json();
-            }
-        } else {
-            data = {
-                is_ok,
-                memeIndex,
-                captions,
-                styles,
             }
         }
         console.log(data)
@@ -136,6 +127,7 @@ async function ReRollMeme(is_ok = null, memeIndex = null, captions = null, style
                 ...data,
                 
             };
+            console.log(data);
 
 
             //assign all of the inputs to the captions with event listiners
@@ -143,7 +135,7 @@ async function ReRollMeme(is_ok = null, memeIndex = null, captions = null, style
             let meme = document.getElementById("meme");
             let cd = document.getElementById("c1d");
             //let inputField = document.getElementById("input1");
-        
+            console.log(data.styles);
             sheet.replaceSync(data.styles);
             document.adoptedStyleSheets = [sheet];
 
@@ -153,12 +145,17 @@ async function ReRollMeme(is_ok = null, memeIndex = null, captions = null, style
                 //inputDiv.removeChild(inputDiv.lastChild);
                 console.log("earased")
             }
+            console.log(meme.className);
+            console.log(data.meme_classes)
+            meme.className = data.meme_classes
 
             for (var i =1; i<= data.captions; i++) {
                 let cdClone = cd.cloneNode(true);
+                console.log(data.caption_div_classes[i])
+                cdClone.className = data.caption_div_classes[i-1];
                 cdClone.id = `c${i}d`;
                 cdClone.childNodes[1].id = `caption${i}`;
-                cdClone.childNodes[1].className = `meme_caption`;
+                cdClone.childNodes[1].className = data.caption_classes[i-1];
                 cdClone.childNodes[1].value = `Caption ${i}`;
                 meme.appendChild(cdClone);
 

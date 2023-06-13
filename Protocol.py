@@ -1,9 +1,10 @@
 import json
 from random import randint
+import time
 
 from mememaker import MemeMaker
 
-PHASES = ["firstpage.html", "waitingpage.html", "ratememe.html", "showmeme.html", "leaderboards.html"]
+PHASES = ["lobby.html", "firstpage.html", "waitingpage.html", "ratememe.html", "showmeme.html", "leaderboards.html"]
 class Protocol:
 
     @staticmethod
@@ -167,13 +168,12 @@ class Protocol:
         return PHASES[phase]
 
     @staticmethod
-    def show_all_memes(lobby, action):
+    def show_all_memes(lobby):
         msg = '''{
-                    "memes":['''
-        if action == "memes_this_round":
-            memes = lobby["memes_this_round"]
-        elif action == "all_memes_made":
-            memes = lobby["all_memes_made"]
+                    "memes":[ '''
+
+        memes = lobby["memes_this_round"]
+
         meme_types = []
         caption_classes = []
         stylesheet = b""
@@ -184,7 +184,7 @@ class Protocol:
 
                 meme_types.append(meme["index"])
                 stylesheet += MemeMaker.getStyles(meme["index"])  # currently also showing background images
-            contents = b"["
+            contents = b"[ "
             for i in meme["captions"]:
                 contents += b" \"" + str(i).encode() + b"\","
             contents = contents[:-1] + b"]"
@@ -221,6 +221,92 @@ class Protocol:
             lobby["all_memes_made"].append(lobby["memes_this_round"][0])
             lobby["memes_this_round"].pop(0)
         return lobby
+
+    @staticmethod
+    def leaderboard_show(lobby):
+        memes = lobby["all_memes_made"]
+        print(memes)
+        meme_types = []
+
+        msg = '''{
+                            "memes":[ '''
+
+        stylesheet = b""
+
+        for meme in memes:
+            print(meme)
+            print(meme["index"])
+            if meme["index"] not in meme_types:
+
+                meme_types.append(meme["index"])
+                stylesheet += MemeMaker.getStyles(meme["index"])  # currently also showing background images
+            contents = b"["
+            for i in meme["captions"]:
+                contents += b" \"" + str(i).encode() + b"\","
+            contents = contents[:-1] + b"]"
+
+            msg += "{" + f'''
+                "creator":{lobby["players"][meme["creator"]]},
+                "background_image":"{MemeMaker.getImage(meme["index"])}",
+                "content":{f'{contents}'[2:][:-1]},
+                "caption_classes":{MemeMaker.classes(len(meme["captions"]), meme["index"], "caption")},
+                "caption_div_classes":{MemeMaker.classes(len(meme["captions"]), meme["index"], "cap_div")},
+                "meme_classes":"meme{meme["index"]}",
+                "score":{meme["score"]},
+                "meme_buddies":["defaultPic.png"]
+            ''' + "},"
+        msg = msg[:-1] + '],"winners":['
+        top3 = []
+        for i in range(len(lobby["score"])):
+            for x in range(len(top3)):
+                if lobby["score"][i] > lobby["score"][x]:
+                    top3.insert(x, i)
+            if i not in top3:
+                top3.append(i)
+        for i in range(len(top3)):
+            msg += "{" + f'''
+                           "username":{lobby["players"][top3[i]]},
+                           "score":{lobby["score"][top3[i]]},
+                           "profile_picture":"defaultPic.png"
+                       ''' + "},"
+            if i == 3:
+                msg = msg[:-1] + '],"players":[ '
+        msg = msg[:-1] + '],'
+
+        msg += f"\"styles\":\"{f'{stylesheet}'[2:][:-1]}\"" + "}"
+
+        return msg
+
+    @staticmethod
+    def get_all_users (lobby, ip):
+        msg = "{ \"players\":[{"
+        for i in range(len(lobby["players"])):
+            msg += f'''
+                "username":{lobby["players"][i]},
+                "profile_picture":"defaultPic.png"
+            ''' + "},{"
+        player_index = lobby["players_ip"].index(ip)
+        msg = msg[:-2] + "],\"is_incharge\":"
+        if player_index == 0:
+            msg += "true}"
+        else:
+            msg += "false}"
+        return msg
+
+
+    @staticmethod
+    def check_lobbies(lobbies):
+        new_lobby = {}
+        counter = 0
+        for i in lobbies:
+            name = list(lobbies.keys())[counter]
+            if i["last_call"] + 10 > time.time():
+                new_lobby[name] = i
+            counter += 1
+        return new_lobby
+
+
+
 
 
 

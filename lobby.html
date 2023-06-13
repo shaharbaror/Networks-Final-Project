@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="lobby.css" />
+    </head>
+    <body>
+        <div class="content">
+            <div class="players-div" id="players_div">
+                
+            </div>
+            <div class="modify-div">
+                <div class="settings-div">
+                    <h1>Settings:</h1>
+                    <div>
+                        <label >time per round:</label>
+                        <input class="inputu" type="number" min="0" max="300" />
+                    </div>
+                    <div>
+                        <label >amount of rounds:</label>
+                        <input class="inputu" type="number" min="0" max="7" />
+                    </div>
+                    
+                </div>
+                <div class="start-game-div">
+                    <button id="start_game" onclick="StartGame()" class="start-game">Start Game</button>
+                </div>
+            </div>
+        </div>
+        <script src="lobby.js"></script>
+    </body>
+</html>

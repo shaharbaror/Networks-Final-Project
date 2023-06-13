@@ -1,6 +1,4 @@
-let playerplayer;
-const player = document.getElementById("player-1");
-playerplayer = document.getElementById("player_stash");
+
 
 //Right after the load:
 
@@ -43,17 +41,19 @@ const LinkBetweenCaptions = (inputId, captionId) => {
       event.target.value = caption.innerHTML;
     });
 };
-
-//The functions:
-
-function PlayerPlayerPlayerPlayer(playerplayerplayer) {
-  playerplayer.appendChild(playerplayerplayer);
-}
-
 function SubmitMeme() {
   alert(
     "MEME HAS BEEN SUBMITTED YOU WRETCHED WEAKLING!! BOW BEFORE YOUR CREATOR, GOD(ME) ALMIGHTY!!!!!"
   );
+}
+
+//The functions:
+let playerplayer;
+const player = document.getElementById("player-1");
+playerplayer = document.getElementById("player_stash");
+
+function PlayerPlayerPlayerPlayer(playerplayerplayer) {
+  playerplayer.appendChild(playerplayerplayer);
 }
 
 for (var i = 0; i < 4; i++) {

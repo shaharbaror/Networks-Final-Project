@@ -34,6 +34,9 @@ async function FetchImages() {
             window.location.href = "/" + `${lobby}/${data.send}`;
             return
         }
+        if (data.hasnext) {
+            window.location.href = "/" + `${lobby}/showmeme.html`;
+        }
     }
     /* data:
     {
@@ -64,13 +67,15 @@ async function FetchImages() {
             console.log("earased")
         }
     }
+    meme.className = data.meme_calsses
 
     for (var i =0; i< data.captions; i++) {
         let cdClone = captionDiv.cloneNode(true);
         //cdClone.appendChild(document.createElement("textarea"));
         cdClone.id = `c${i}d`;
+        meme.className = data.meme_classes
         cdClone.childNodes[0].id = `caption${i}`;
-        cdClone.childNodes[0].className = `meme_caption${i}`;
+        cdClone.childNodes[0].className = data.caption_classes[i];
         console.log(data.content[i]);
         cdClone.childNodes[0].value = data.content[i];
         cdClone.childNodes[0].readonly = true;

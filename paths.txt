@@ -1,20 +1,22 @@
 .caption10
 {
-    margin-top: 60%;
-    font-size: 25px;
-    width:40%;
-    max-width:50%;
-    margin-left: 30%;
+    font-size: 20px;
+    margin-left: 15%;
+    margin-top: 70%;
+    height: 18%;
+    width: 75%;
+    resize: none;
 }
 .caption11 {
     max-width: 300px;
     margin-left:5%;
     font-size: 30px;
+    resize:none;
 }
-#cap-div10 {
+.cap_div10 {
     width: 50%;
 }
-#cap-div11 {
+.cap_div11 {
     width: 50%;
     text-align: center;
 }
@@ -30,29 +32,279 @@ __SHEETBREAKER__
 
 .caption20 {
   margin-top: 5%;
+  width:75%;
+  height:70%;
   margin-left: 5%;
   font-size: 30px;
+  resize:none;
 
 }
 
 .caption21 {
-  margin-top: 30%;
+  margin-top: 10%;
+  height:70%;
+  width:75%;
   margin-left: 5%;
   font-size: 30px;
+  resize:none;
 
 }
 
-#cap-div20 {
+.cap_div20 {
     width: 50%;
+    height:50%;
 }
-#cap-div21 {
+.cap_div21 {
     width: 50%;
-    text-align: center;
+    height:50%;
+
 }
 
 .meme2 {
     background-image: url('./MemeBank/meme02.png');
     display: block;
+    aspect-ratio: 235/ 223.5;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+__SHEETBREAKER__
+
+.caption30 {
+  margin-top: 0%;
+    height: 35%;
+    width: 90%;
+    margin-left: 5%;
+    font-size: 30px;
+    resize: none;
+
+}
+
+.caption31 {
+  margin-top: 0%;
+    height: 35%;
+    width: 90%;
+    margin-left: 5%;
+    font-size: 30px;
+    resize: none;
+
+}
+
+.cap_div30 {
+    width: 50%;
+    height:50%;
+}
+.cap_div31 {
+    width: 50%;
+    height:50%;
+
+}
+
+.meme3 {
+   background-image: url(./MemeBank/meme03.png);
+    display: flex;
+    aspect-ratio: 235 / 223.5;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+__SHEETBREAKER__
+
+.caption40 {
+    margin-top: 5%;
+    width: 75%;
+    height: 20%;
+    margin-left: 5%;
+    font-size: 30px;
+    resize: none;
+
+}
+
+.caption41 {
+    margin-top: 10%;
+    height: 20%;
+    width: 75%;
+    margin-left: 5%;
+    font-size: 30px;
+    resize: none;
+
+}
+
+.cap_div40 {
+    width: 50%;
+    height:50%;
+}
+.cap_div41 {
+    width: 50%;
+    height:50%;
+
+}
+
+.meme4 {
+    background-image: url('./MemeBank/meme04.png');
+    display: block;
+    aspect-ratio: 235/ 223.5;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+__SHEETBREAKER__
+
+.caption50 {
+    margin-top: 10%;
+    width: 90%;
+    height: 70%;
+    margin-left: 10%;
+    font-size: 30px;
+    resize: none;
+
+}
+
+.caption51 {
+    margin-top: 25%;
+    height: 70%;
+    width: 100%;
+    margin-left: 5%;
+    font-size: 30px;
+    resize: none;
+
+}
+
+.cap_div50 {
+    width: 50%;
+    height:50%;
+}
+.cap_div51 {
+    width: 50%;
+    height:50%;
+
+}
+
+.meme5 {
+    background-image: url('./MemeBank/meme05.png');
+    display: block;
+    aspect-ratio: 235/ 223.5;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+__SHEETBREAKER__
+
+.caption60 {
+  margin-top: 10%;
+    height: 70%;
+    width: 80%;
+    margin-left: 15%;
+    font-size: 30px;
+    resize: none;
+
+}
+
+.caption61 {
+  margin-top: 10%;
+    height: 70%;
+    width: 80%;
+    margin-left: 15%;
+    font-size: 30px;
+    resize: none;
+
+}
+
+.cap_div60 {
+    width: 50%;
+    height: 50%;
+    margin-left: 50%;
+}
+.cap_div61 {
+    width: 50%;
+    height: 50%;
+    margin-left: 50%;
+
+}
+
+.meme6 {
+    background-image: url('./MemeBank/meme06.png');
+    display: block;
+    aspect-ratio: 235/ 223.5;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+__SHEETBREAKER__
+
+.caption70 {
+  margin-top: 5%;
+  width:75%;
+  height:50%;
+  margin-left: 5%;
+  font-size: 30px;
+  resize:none;
+
+}
+
+.caption71 {
+  margin-top: 50%;
+  height:30%;
+  width:75%;
+  margin-left: 15%;
+  font-size: 30px;
+  resize:none;
+
+}
+
+.cap_div70 {
+    width: 50%;
+    height:50%;
+}
+.cap_div71 {
+    width: 50%;
+    height:50%;
+
+}
+
+.meme7 {
+    background-image: url('./MemeBank/meme07.png');
+    display: flex;
+    aspect-ratio: 235/ 223.5;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+__SHEETBREAKER__
+
+.caption80 {
+      margin-top: 100%;
+    width: 75%;
+    height: 30%;
+    margin-left: 35%;
+    font-size: 30px;
+    resize: none;
+
+}
+
+.caption81 {
+  margin-top: 10%;
+    height: 30%;
+    width: 75%;
+    margin-left: 5%;
+    font-size: 30px;
+    resize: none;
+
+}
+
+.cap_div80 {
+    width: 50%;
+    height:50%;
+}
+.cap_div81 {
+    width: 50%;
+    height:50%;
+
+}
+
+.meme8 {
+    background-image: url('./MemeBank/meme08.png');
+    display: flex;
     aspect-ratio: 235/ 223.5;
     background-size: cover;
     background-repeat: no-repeat;
