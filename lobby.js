@@ -26,11 +26,14 @@ function AtStart() {
 }
 
 function ShowPlayers(players) {
+    let PlayersRow;
     const PlayersDiv = document.getElementById("players_div");
     while (PlayersDiv.childNodes.length > 0) {
-        PlayersDiv.childNodes.pop();
+        PlayersDiv.removeChild(PlayersDiv.lastChild);
     }
-    players = players.map(player => {
+    console.log(players);
+    for (var i = 0; i< players.players.length; i++){
+        var player = players.players[i];
         if (PlayersDiv.childNodes.length > 0) {
             while (PlayersDiv.childNodes[-1].length > 3) {
                 PlayersDiv.childNodes[-1].removeChild();
@@ -48,7 +51,7 @@ function ShowPlayers(players) {
             newPlayer.appendChild(username);
         
             if (PlayersDiv.childNodes[-1].length >= 3) {
-                let PlayersRow = document.createElement("div");
+                PlayersRow = document.createElement("div");
                 PlayersRow.className = "player-row";
                 PlayersRow.id = "player_row";
                 
@@ -77,7 +80,7 @@ function ShowPlayers(players) {
         PlayersRow.appendChild(newPlayer);
         PlayersDiv.appendChild(PlayersRow);
         return player;
-    });
+    }
 
 }
 

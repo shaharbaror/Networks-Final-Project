@@ -186,6 +186,7 @@ class Protocol:
                 stylesheet += MemeMaker.getStyles(meme["index"])  # currently also showing background images
             contents = b"[ "
             for i in meme["captions"]:
+
                 contents += b" \"" + str(i).encode() + b"\","
             contents = contents[:-1] + b"]"
 
@@ -242,6 +243,7 @@ class Protocol:
                 stylesheet += MemeMaker.getStyles(meme["index"])  # currently also showing background images
             contents = b"["
             for i in meme["captions"]:
+
                 contents += b" \"" + str(i).encode() + b"\","
             contents = contents[:-1] + b"]"
 
@@ -305,6 +307,14 @@ class Protocol:
             counter += 1
         return new_lobby
 
+    @staticmethod
+    def reset_stats_round(lobby):
+        for i in range(len(lobby["players"])):
+            lobby["started"][i] = False
+            lobby["finished"][i] = False
+            lobby["players_meme"][i] = -1
+
+        return lobby
 
 
 

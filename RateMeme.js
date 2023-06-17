@@ -9,6 +9,8 @@ setInterval(() => {
     
 },20000)
 
+
+
 Count();
 let timer = setInterval(Count,1000);
 
@@ -18,6 +20,7 @@ function Count() {
 }
 
 async function Vote() {
+    console.log(vote);
     if (vote >= 1 && vote <= 2) {
         
         await fetch(`ratememe?a=rated&v=${vote}`);
@@ -74,6 +77,7 @@ async function FetchImages() {
         //cdClone.appendChild(document.createElement("textarea"));
         cdClone.id = `c${i}d`;
         meme.className = data.meme_classes
+        cdClone.className = data.caption_div_classes[i];
         cdClone.childNodes[0].id = `caption${i}`;
         cdClone.childNodes[0].className = data.caption_classes[i];
         console.log(data.content[i]);

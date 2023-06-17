@@ -123,6 +123,7 @@ def first_page_functions(header, body, ip):
 
 
             print(lobby["remaining_rolls"][player_index])
+            print(player_index)
 
             # if a player already has used up all of his rolls, and he refreshes then just get him his meme back
             if lobby["started"][player_index]:
@@ -215,7 +216,6 @@ def ratememe_functions(header,body, ip):
             lobbies[lobby_name] = lobby
             with open("lobbies.json", "w") as f:
                 json.dump(lobbies, f)
-            print(lobby["all_memes_made"][-1])
             msg = Protocol.prepare_meme(lobby["memes_this_round"][0], -1)
         else:
             msg = b'{"hasnext":true}'
@@ -229,6 +229,7 @@ def ratememe_functions(header,body, ip):
 
     if "a=rated" in header[1]:
         rating = header[1][-1]
+        print(rating)
 
         if rating == "1":
             lobby["memes_this_round"][-1]["score"] -= 1
@@ -313,10 +314,11 @@ def show_meme_functions(header, body, ip):
             else:
                 lobby["round"] += 1
                 lobby = Protocol.add_memes(lobby)
+                lobby = Protocol.reset_stats_round(lobby)
                 lobby["phase"] = 1
                 lobby["round_timer"] = time.time() + lobby["time_per_meme"]
                 lobbies[lobby_name] = lobby
-                msg = Protocol.get_phase(0)
+                msg = Protocol.get_phase(lobby["phase"])
             msg = "{" + f'"send":"{msg}"' + "}"
             with open("lobbies.json", "w") as f:
                 json.dump(lobbies, f)
@@ -384,7 +386,7 @@ def lobby_functions(header, body, ip):
         lobby["phase"] = 1
 
         roll_amount = 5
-        timer = 4000  # need to make it so that the timer wont reset every time a player joins the game
+        timer = 40  # need to make it so that the timer wont reset every time a player joins the game
 
         print("hello from the other")
         lobby["round_timer"] = int(time.time() + timer)

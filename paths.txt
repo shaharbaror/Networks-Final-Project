@@ -103,7 +103,7 @@ __SHEETBREAKER__
 .meme3 {
    background-image: url(./MemeBank/meme03.png);
     display: flex;
-    aspect-ratio: 235 / 223.5;
+    aspect-ratio: 1170 / 1190;
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -143,7 +143,7 @@ __SHEETBREAKER__
 .meme4 {
     background-image: url('./MemeBank/meme04.png');
     display: block;
-    aspect-ratio: 235/ 223.5;
+    aspect-ratio: 716/700;
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -183,7 +183,7 @@ __SHEETBREAKER__
 .meme5 {
     background-image: url('./MemeBank/meme05.png');
     display: block;
-    aspect-ratio: 235/ 223.5;
+    aspect-ratio: 532/599;
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -225,7 +225,7 @@ __SHEETBREAKER__
 .meme6 {
     background-image: url('./MemeBank/meme06.png');
     display: block;
-    aspect-ratio: 235/ 223.5;
+    aspect-ratio: 504/368;
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -265,7 +265,7 @@ __SHEETBREAKER__
 .meme7 {
     background-image: url('./MemeBank/meme07.png');
     display: flex;
-    aspect-ratio: 235/ 223.5;
+    aspect-ratio: 497/378;
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -305,7 +305,7 @@ __SHEETBREAKER__
 .meme8 {
     background-image: url('./MemeBank/meme08.png');
     display: flex;
-    aspect-ratio: 235/ 223.5;
+    aspect-ratio: 503/340;
     background-size: cover;
     background-repeat: no-repeat;
 }
